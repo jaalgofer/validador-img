@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <img id="image" src="sin_imagen.png" style="max-width: 300px" />
+    </div>
+    <div>
+        <label for="ModalEquipamientoSubirImagen">Seleccionar archivo</label><br>
+        <input type="file" name="SubirImagen" id="SubirImagen" accept="image/png, image/jpg, image/jpeg" onchange="ObtenerImg(event)"
+            multiple />
+    </div>
+
+    <script src="validador_img.js"></script>
+    <script>
+        function ObtenerImg(InputImg) {
+
+            let verificar = verificarArchivo(InputImg, 'img');
+
+            if (verificar.status) {
+                alert(verificar.Msj);
+                document.getElementById("SubirImagen").value = "";
+                return false;
+            }
+
+            if (InputImg.target.files && InputImg.target.files[0]) {
+                var FR = new FileReader();
+                FR.addEventListener("load", function (e) {
+                    document.getElementById("image").setAttribute("src", e.target.result);
+                });
+                FR.readAsDataURL(InputImg.target.files[0]);
+            }
+        }
+    </script>
+</body>
+
+</html>
